@@ -1,0 +1,23 @@
+.main {
+  padding: 0 var(--spacing-md);
+  --columns: 1;
+  display: grid;
+  gap: var(--spacing-sm);
+  grid-template-columns: [left] repeat(var(--columns), [col-start] 1fr [col-end]) [right];
+  grid-template-rows: [top]
+}
+
+@media screen and (min-width: 48rem) {
+  .main {
+    --columns: 2;
+  }
+}
+
+.header {
+  grid-column-start: left;
+  grid-column-end: right;
+}
+
+.column {
+  grid-column: auto / span 1;
+}

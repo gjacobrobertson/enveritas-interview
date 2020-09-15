@@ -1,0 +1,11 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.question {
+  border: 1px solid #000000;
+  padding: var(--spacing-sm);
+  display: flex;
+  flex-direction: column;
+}
