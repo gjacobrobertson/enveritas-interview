@@ -5,6 +5,11 @@ import React, {
   DragEvent,
   ChangeEvent
 } from "react"
+import {
+  AiOutlineArrowUp,
+  AiOutlineArrowDown,
+  AiOutlineDelete, AiOutlineDrag
+} from "react-icons/ai"
 import { Question } from "../../hooks/useSurvey"
 import styles from "./SurveyForm.module.css"
 interface Props {
@@ -13,8 +18,10 @@ interface Props {
   index: number;
   update: (question: Question, index: number) => void
   move: (from: number, to: number) => void
+  remove: (index: number) => void
 }
-const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, update, move }) => {
+console.log(styles);
+const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, update, move, remove }) => {
   const itemRef = useRef<HTMLLIElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -23,10 +30,14 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
 
   const moveUp = useCallback(() => move(index, index - 1), [index, move])
   const moveDown = useCallback(() => move(index, index + 1), [index, move])
+  const destroy = useCallback(() => remove(index), [index, remove])
 
   const handleDragStart = useCallback((event: DragEvent) => {
+    if (event.target !== event.currentTarget) {
+      return event.preventDefault()
+    }
     const item = itemRef.current as HTMLLIElement
-    const { x, y } = item.getBoundingClientRect();
+    const { x, y } = item.getBoundingClientRect()
     event.dataTransfer.setDragImage(item, event.clientX - x, event.clientY - y)
     event.dataTransfer.setData("text/plain", index.toString())
   }, [itemRef, index])
@@ -42,14 +53,48 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
     const from = parseInt(data, 10)
     move(from, index)
   }, [index, move])
+  return <li
+    ref={itemRef}
+    onDragOver={handleDragOver}
+    onDrop={handleDrop}>
+    <section className={styles.question} aria-label={`Question ${index + 1}`}>
+      <header className={styles.questionHeader}>
+        <div className={styles.questionHeaderLeft}>
+          <span draggable onDragStart={handleDragStart} className={styles.handle}>
+            <AiOutlineDrag aria-hidden="true" />
+          </span>
+        </div>
+        <div className={styles.questionHeaderCenter}>
+          <button
+            type="button"
+            disabled={!itemRef.current?.previousSibling}
+            onClick={moveUp}
+            aria-label="Move Up">
+            <AiOutlineArrowUp aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            disabled={!itemRef.current?.nextSibling}
+            onClick={moveDown}
+            aria-label="Move Down">
+            <AiOutlineArrowDown aria-hidden="true" />
+          </button>
+        </div>
+        <div className={styles.questionHeaderRight}>
+          <button
+            type="button"
+            className={styles.deleteButton}
+            onClick={destroy}
+            aria-label="Delete Question">
+            <AiOutlineDelete aria-hidden="true" />
+          </button>
+        </div>
+      </header>
+      <label htmlFor={`question[${id}][prompt]`}>Question</label>
+      <input id={`question[${id}][prompt]`} name="questions[prompt]" value={prompt} onChange={handleChange} />
+    </section>
 
-  return <li ref={itemRef} className={styles.question} onDragOver={handleDragOver} onDrop={handleDrop}>
-    <button type="button" disabled={!itemRef.current?.previousSibling} onClick={moveUp}>Move Up</button>
-    <button type="button" disabled={!itemRef.current?.nextSibling} onClick={moveDown}>Move Down</button>
-    <p draggable onDragStart={handleDragStart}>Drag</p>
-    <label htmlFor={`question[${id}][prompt]`}>Question</label>
-    <input id={`question[${id}][prompt]`} name="questions[prompt]" value={prompt} onChange={handleChange} />
-  </li>
+  </li >
 }
 
 export default SurveyFormQuestion

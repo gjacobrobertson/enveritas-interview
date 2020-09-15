@@ -52,6 +52,14 @@ export default () => {
     })
   }, [])
 
+  const removeQuestion = useCallback((index: number) => {
+    setQuestions(old => {
+      const clone = [...old]
+      clone.splice(index, 1)
+      return clone
+    })
+  }, [])
+
   useEffect(() => {
     setJson(JSON.stringify(questions, null, 2))
   }, [questions])
@@ -64,6 +72,7 @@ export default () => {
     questions,
     addQuestion,
     updateQuestion,
-    moveQuestion
+    moveQuestion,
+    removeQuestion,
   }
 }
