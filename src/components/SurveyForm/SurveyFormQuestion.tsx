@@ -10,7 +10,7 @@ import {
   AiOutlineArrowDown,
   AiOutlineDelete, AiOutlineDrag
 } from "react-icons/ai"
-import { Question } from "../../hooks/useSurvey"
+import Question from "../../types/Question"
 import styles from "./SurveyForm.module.css"
 interface Props {
   prompt: string;
@@ -20,7 +20,6 @@ interface Props {
   move: (from: number, to: number) => void
   remove: (index: number) => void
 }
-console.log(styles);
 const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, update, move, remove }) => {
   const itemRef = useRef<HTMLLIElement>(null);
 
@@ -90,8 +89,9 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
           </button>
         </div>
       </header>
+      <input type="hidden" name="questions[id]" value={id} />
       <label htmlFor={`question[${id}][prompt]`}>Question</label>
-      <input id={`question[${id}][prompt]`} name="questions[prompt]" value={prompt} onChange={handleChange} />
+      <input type="text" id={`question[${id}][prompt]`} name="questions[prompt]" value={prompt} onChange={handleChange} />
     </section>
 
   </li >

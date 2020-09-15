@@ -1,15 +1,18 @@
 import React from 'react';
-import JsonSurveyForm from "../JsonSurveyForm"
-import SurveyForm from "../SurveyForm"
-import useSurvey from "../../hooks/useSurvey";
+import Question from "../../types/Question";
+import JsonSurveyForm, { useJsonSurveyForm } from "../JsonSurveyForm"
+import SurveyForm, { useSurveyForm } from "../SurveyForm"
 import styles from './App.module.css';
 
 const App: React.FunctionComponent = () => {
-  const { json, setJson, validateJson, error, questions, updateQuestion, addQuestion, moveQuestion, removeQuestion } = useSurvey()
+  const [questions, setQuestions] = React.useState<Question[]>([])
+  const surveyFormProps = useSurveyForm(questions, setQuestions)
+  const jsonSurveyFormProps = useJsonSurveyForm(questions, setQuestions)
+
   return <main className={styles.main}>
     <h1 className={styles.header}>Enveritas Interview</h1>
-    <JsonSurveyForm className={styles.column} json={json} setJson={setJson} error={error} validate={validateJson} />
-    <SurveyForm className={styles.column} questions={questions} add={addQuestion} update={updateQuestion} move={moveQuestion} remove={removeQuestion} />
+    <JsonSurveyForm className={styles.column} {...jsonSurveyFormProps} />
+    <SurveyForm className={styles.column} {...surveyFormProps} />
   </main>
 }
 

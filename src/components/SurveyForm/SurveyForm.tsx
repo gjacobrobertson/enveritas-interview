@@ -1,6 +1,6 @@
 import React, { FormEvent, FunctionComponent, HTMLProps, useCallback } from "react"
 import clsx from "clsx";
-import { Question } from "../../hooks/useSurvey";
+import Question from "../../types/Question";
 import styles from "./SurveyForm.module.css";
 import SurveyFormQuestion from "./SurveyFormQuestion";
 

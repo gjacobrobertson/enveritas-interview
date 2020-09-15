@@ -21,3 +21,6 @@ down:
 
 shell:
 	docker-compose run --rm app /bin/ash
+
+test:
+	docker-compose run --rm app npm test
