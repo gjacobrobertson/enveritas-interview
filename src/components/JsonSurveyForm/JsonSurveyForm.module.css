@@ -7,3 +7,11 @@
   resize: none;
   height: 20rem;
 }
+
+.submit {
+  margin-top: var(--spacing-lg);
+}
+
+.error {
+  color: var(--color-status-error);
+}

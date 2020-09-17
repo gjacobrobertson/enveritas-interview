@@ -68,14 +68,15 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
             type="button"
             disabled={!itemRef.current?.previousSibling}
             onClick={moveUp}
-            aria-label="Move Up">
+            title="Move Up"
+          >
             <AiOutlineArrowUp aria-hidden="true" />
           </button>
           <button
             type="button"
             disabled={!itemRef.current?.nextSibling}
             onClick={moveDown}
-            aria-label="Move Down">
+            title="Move Down">
             <AiOutlineArrowDown aria-hidden="true" />
           </button>
         </div>
@@ -84,7 +85,7 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
             type="button"
             className={styles.deleteButton}
             onClick={destroy}
-            aria-label="Delete Question">
+            title="Delete Question">
             <AiOutlineDelete aria-hidden="true" />
           </button>
         </div>

@@ -12,7 +12,7 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
 
   const add = useCallback(() => {
     setQuestions(old => [...old, { id: uuidv4(), prompt: "" }])
-  }, [])
+  }, [setQuestions])
 
   const remove = useCallback((index: number) => {
     setQuestions(old => {
@@ -20,7 +20,7 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
       clone.splice(index, 1)
       return clone
     })
-  }, [])
+  }, [setQuestions])
 
   const move = useCallback((from: number, to: number) => {
     setQuestions(old => {
@@ -29,11 +29,11 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
       clone.splice(to, 0, question)
       return clone
     })
-  }, [])
+  }, [setQuestions])
 
   const update = useCallback((question: Question, index: number) => {
     setQuestions(old => [...old.slice(0, index), question, ...old.slice(index + 1, old.length)])
-  }, [])
+  }, [setQuestions])
 
   return {
     questions,

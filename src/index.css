@@ -4,7 +4,26 @@
   --spacing-md: 0.75rem;
   --spacing-lg: 1rem;
   --spacing-xl: 2rem;
+
+  --color-white: #FFFFFF;
+  --color-neutral-1: #E4E4E4;
+  --color-neutral-2: #C6C6C6;
+  --color-neutral-3: #A8A8A8;
+  --color-neutral-4: #909090;
+  --color-neutral-5: #727272;
+  --color-neutral-6: #545454;
+  --color-neutral-7: #363636;
+  --color-neutral-8: #181818;
+  --color-black: #000000;
+  --color-accent: #dd16ddd7;
+  --color-status-error: #db1212;
 }
+
+:focus {
+  outline: none;
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
 
 body {
   margin: 0;
@@ -27,7 +46,31 @@ fieldset {
 
 button {
   cursor: pointer;
+  background-color: var(--color-neutral-1);
 }
+
+button:hover {
+  filter: brightness(105%);
+}
+
+button:active {
+  filter: brightness(95%);
+}
+
+input, button {
+  height: var(--spacing-xl);
+}
+
+input, textarea {
+  background-color: var(--color-white);
+}
+
+input, textarea, button {
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: 1px solid var(--color-black);
+  border-radius: var(--spacing-xs);
+}
+
 
 [draggable] {
   cursor: move;

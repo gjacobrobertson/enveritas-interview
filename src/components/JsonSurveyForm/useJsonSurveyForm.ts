@@ -33,7 +33,7 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
     catch {
       return setError("Input must be valid JSON")
     }
-  }, [])
+  }, [setQuestions])
 
 
   useEffect(() => {

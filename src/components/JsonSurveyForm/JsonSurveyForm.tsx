@@ -21,9 +21,9 @@ const JsonSurveyForm: FunctionComponent<Props> = ({ json, setJson, validate, err
 
   return <form {...props} className={clsx(className, styles.form)} onSubmit={handleSubmit}>
     <label htmlFor="json">JSON</label>
-    {error && <p role="alert">{error}</p>}
     <textarea id="json" name="json" className={styles.textarea} value={json} onChange={handleChange} />
-    <button type="submit">Update Survey</button>
+    <button type="submit" className={styles.submit}>Update Survey</button>
+    {error && <p role="alert" className={styles.error}>{error}</p>}
   </form>
 }
 
