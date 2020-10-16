@@ -3,7 +3,7 @@
   --columns: 1;
   display: grid;
   gap: var(--spacing-sm);
-  grid-template-columns: [left] repeat(var(--columns), [col-start] 1fr [col-end]) [right];
+  grid-template-columns: [left] repeat(var(--columns), [col-start] minmax(0, 1fr) [col-end]) [right];
   grid-template-rows: [top]
 }
 

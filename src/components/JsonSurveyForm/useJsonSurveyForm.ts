@@ -28,6 +28,7 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
       }
 
       setError(null);
+      console.log("SETTING QUESTIONS");
       setQuestions(data);
     }
     catch {
@@ -37,6 +38,7 @@ export default (questions: Question[], setQuestions: Dispatch<SetStateAction<Que
 
 
   useEffect(() => {
+    console.log("updating JSON from questions")
     setJson(JSON.stringify(questions, null, 2))
   }, [questions])
 

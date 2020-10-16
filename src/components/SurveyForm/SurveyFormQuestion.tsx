@@ -1,9 +1,10 @@
 import React, {
   useRef,
   useCallback,
+  useState,
   FunctionComponent,
   DragEvent,
-  ChangeEvent
+  ChangeEvent, useEffect
 } from "react"
 import {
   AiOutlineArrowUp,
@@ -52,11 +53,27 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
     const from = parseInt(data, 10)
     move(from, index)
   }, [index, move])
+
+
+  const [shortPrompt, setShortPrompt] = useState(prompt)
+  const promptRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (!promptRef.current) {
+      return;
+    }
+
+    const parent = promptRef.current.parentElement as HTMLElement;
+    const { width } = parent.getBoundingClientRect();
+    // compute shortenedprompt
+    // setShortPrompt()
+  }, [promptRef.current])
+
   return <li
     ref={itemRef}
     onDragOver={handleDragOver}
     onDrop={handleDrop}>
-    <section className={styles.question} aria-label={`Question ${index + 1}`}>
+    <section className={styles.question} aria-label={`Question ${index + 1}`} >
       <header className={styles.questionHeader}>
         <div className={styles.questionHeaderLeft}>
           <span draggable onDragStart={handleDragStart} className={styles.handle}>
@@ -93,6 +110,7 @@ const SurveyFormQuestion: FunctionComponent<Props> = ({ prompt, id, index, updat
       <input type="hidden" name="questions[id]" value={id} />
       <label htmlFor={`question[${id}][prompt]`}>Question</label>
       <input type="text" id={`question[${id}][prompt]`} name="questions[prompt]" value={prompt} onChange={handleChange} />
+      <p ref={promptRef}>{prompt}</p>
     </section>
 
   </li >
